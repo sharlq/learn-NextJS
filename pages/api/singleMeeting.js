@@ -1,7 +1,6 @@
 import connectDB from "../../middlewares/DBcongiguration";
 import meeting from "../../models/meeting";
 const handler = async (req, res) => {
-console.log(req)
    if (req.method === "GET") {
        let id =req.query.id
     meeting.find({_id:id},(err, data) => {
