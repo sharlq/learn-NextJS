@@ -1,15 +1,18 @@
-import React from 'react'
-import MeetupItem from '../../components/meetups/MeetupItem'
-import meetings from '../../public/meetings'
+import React,{useEffect,useState} from 'react'
 import {useRouter} from 'next/router'
+import axios from 'axios'
 const index = () => {
     let router = useRouter();
     let id =router.query.id
-let theMeeting = meetings.find((meeting)=>meeting.id === id)
+    const [theMeeting,setTheMeeting] = useState({})
+    useEffect(async()=>{
+     const res =  await axios.get(`/api/singleMeeting?id=${id}`)
+        await setTheMeeting(res.data[0])
+    },[])
     return (
         <div>
             <img src={theMeeting.image} />
-            <h1>{theMeeting.id}</h1>
+            <h1>{theMeeting._id}</h1>
             <h2>{theMeeting.title}</h2>
             <h3>{theMeeting.address}</h3>
         </div>
